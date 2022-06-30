@@ -1,4 +1,4 @@
-# <img src="https://github.com/trungtruc123/ViTTS/blob/develop/images/logo.png" height="56"/>
+# <img src="https://github.com/trungtruc123/ViTTS/blob/develop/images/logo.png"/>
 
 🎁ViTTS is a library for advanced Text-to-Speech generation for multi language such as: chinese, japanese, vietnamese .
 
@@ -10,14 +10,14 @@
 ## 💬 Where to ask questions
 Please use our dedicated channels for questions and discussion. Help is much more valuable if it's shared publicly so that more people can benefit from it.
 
-| Type                            | Platforms                               |
-| ------------------------------- | --------------------------------------- |
-| 🚨 **Bug Reports**              | [GitHub Issue Tracker]                  |
-| 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker]                  |
-| 👩‍💻 **Usage Questions**          | [Github Discussions]                    |
-| 🗯 **General Discussion**       | [linkedin] or [Gitter Room]   |
+| Type                            | Platforms      |
+| ------------------------------- |----------------|
+| 🚨 **Bug Reports**              | [GitHub Issue] |
+| 🎁 **Feature Requests & Ideas** | [GitHub Issue] |
+| 👩‍💻 **Usage Questions**          | [Github Discussions] |
+| 🗯 **General Discussion**       | [Linkedin] or [Gitter Room] |
 
-[github issue tracker]: https://github.com/trungtruc123/ViTTS/issues
+[GitHub issue]: https://github.com/trungtruc123/ViTTS/issues
 [github discussions]: https://github.com/trungtruc123/ViTTS/issues
 [gitter room]: https://www.facebook.com/profile.php?id=100038801181933
 [linkedin]: https://www.linkedin.com/in/truc-tran-trung-380533149/
@@ -28,8 +28,8 @@ Please use our dedicated channels for questions and discussion. Help is much mor
 | ------------------------------- | --------------------------------------- |
 | 💼 **Documentation**              | [ReadTheDocs](https://github.com/trungtruc123/ViTTS/tree/develop/docs)
 | 💾 **Installation**               | [TTS/README.md](https://github.com/trungtruc123/ViTTS/blob/develop/README.md)|
-| 👩‍💻 **Contributing**               | [CONTRIBUTING.md]()|
-| 📌 **Road Map**                   | [Main Development Plans]()
+| 👩‍💻 **Contributing**               | [CONTRIBUTING.md](https://github.com/trungtruc123/ViTTS/blob/develop/README.md)|
+| 📌 **Road Map**                   | [Main Development Plans](https://github.com/trungtruc123/ViTTS/blob/develop/README.md)
 
 
 ## Implemented Models
