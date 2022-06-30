@@ -1,6 +1,9 @@
+# <img src="https://github.com/trungtruc123/ViTTS/blob/develop/images/logo.png" height="56"/>
 
-🎁ViTTS is a library for advanced Text-to-Speech generation for multi language such as: chinese, japanese, vietnamese . It's built on the latest research, was designed to achieve the best trade-off among ease-of-training, speed and quality.
+🎁ViTTS is a library for advanced Text-to-Speech generation for multi language such as: chinese, japanese, vietnamese .
+
 🎁ViTTS builts on the latest research, It designed to achieve the best trade-off among ease of training, inference and evaluate.
+
 🎁ViTTS is a library for text to speech, it achive performance in speech and quality.
 
 
@@ -12,19 +15,19 @@ Please use our dedicated channels for questions and discussion. Help is much mor
 | 🚨 **Bug Reports**              | [GitHub Issue Tracker]                  |
 | 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker]                  |
 | 👩‍💻 **Usage Questions**          | [Github Discussions]                    |
-| 🗯 **General Discussion**       | [Github Discussions] or [Gitter Room]   |
+| 🗯 **General Discussion**       | [linkedin] or [Gitter Room]   |
 
-[github issue tracker]: 
-[github discussions]:
-[gitter room]: 
-[Tutorials and Examples]:
+[github issue tracker]: https://github.com/trungtruc123/ViTTS/issues
+[github discussions]: https://github.com/trungtruc123/ViTTS/issues
+[gitter room]: https://www.facebook.com/profile.php?id=100038801181933
+[linkedin]: https://www.linkedin.com/in/truc-tran-trung-380533149/
 
 
 ## 🔗 Links and Resources
 | Type                            | Links                               |
 | ------------------------------- | --------------------------------------- |
-| 💼 **Documentation**              | [ReadTheDocs]()
-| 💾 **Installation**               | [TTS/README.md]()|
+| 💼 **Documentation**              | [ReadTheDocs](https://github.com/trungtruc123/ViTTS/tree/develop/docs)
+| 💾 **Installation**               | [TTS/README.md](https://github.com/trungtruc123/ViTTS/blob/develop/README.md)|
 | 👩‍💻 **Contributing**               | [CONTRIBUTING.md]()|
 | 📌 **Road Map**                   | [Main Development Plans]()
 
