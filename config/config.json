@@ -1,0 +1,20 @@
+{
+    "run_name": "my_run",
+    "model": "glow_tts",
+    "batch_size": 32,
+    "eval_batch_size": 16,
+    "num_loader_workers": 4,
+    "num_eval_loader_workers": 4,
+    "run_eval": true,
+    "test_delay_epochs": -1,
+    "epochs": 1000,
+    "text_cleaner": "english_cleaners",
+    "use_phonemes": false,
+    "phoneme_language": "en-us",
+    "phoneme_cache_path": "phoneme_cache",
+    "print_step": 25,
+    "print_eval": true,
+    "mixed_precision": false,
+    "output_path": "recipes/ljspeech/glow_tts/",
+    "datasets":[{"name": "ljspeech", "meta_file_train":"metadata.csv", "path": "recipes/ljspeech/LJSpeech-1.1/"}]
+}

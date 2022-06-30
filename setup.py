@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name="TextToSpeech_Vietnamese",
+    name="ViTTS",
     version="0.0.1",
     author="Tran Trung Truc",
     author_email="tieuthu.anninh@gmail.com",

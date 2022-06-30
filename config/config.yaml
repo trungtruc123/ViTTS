@@ -1,0 +1,9 @@
+Training:
+  batch_size: 32
+  eval_batch_size: 16
+  run_eval: True
+  epochs: 1000
+  seq_len: 8192
+  data_path: "my_path"
+  output_path: output_path
+  
