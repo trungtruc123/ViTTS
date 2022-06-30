@@ -1,5 +1,7 @@
 import re
 
+# Correctly generate plurals, singular nouns, ordinals, indefinite articles; convert numbers to words.
+# docs: https://pypi.org/project/inflect/
 import inflect
 
 _inflect = inflect.engine()
