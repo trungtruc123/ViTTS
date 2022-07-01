@@ -9,5 +9,6 @@ abbreviations_vi = [
         ("đm", "địt mẹ"),
         ("ck", "chồng"),
         ("vk", "vợ"),
+        ("oh", "ồ")
     ]
 ]
