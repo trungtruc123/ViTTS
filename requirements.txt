@@ -1,2 +1,13 @@
 jsbeautifier==1.11.0
 pyyaml
+numpy==1.21.6
+torch>=1.7
+torchaudio
+soundfile
+librosa==0.8.0
+pandas
+matplotlib
+trainer
+scipy>=1.4.0
+anyascii
+inflect
