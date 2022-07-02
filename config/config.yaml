@@ -1,9 +1,55 @@
-Training:
+AUDIO:
+  sample_rate: 44100
+  resample: True
+  num_mels: 80
+  log_func: "np.log10"
+  min_level_db: -100
+  ref_level_db: 20
+  fft_size: 1024
+  power: 1.5
+  preemphasis: 0.0
+  griffin_lim_iters: 60
+  signal_norm: True
+  symmetric_norm: True
+  mel_fmin: 0
+  pitch_fmin: 0.0
+  pitch_fmax: 640.0
+  spec_gain: 20.0
+  max_norm: 4.0
+  clip_norm: True
+  do_trim_silence: True
+  trim_db: 45
+  do_sound_norm: False
+  do_amp_to_db_linear: True
+  do_amp_to_db_mel: True
+  do_rms_norm: False
+  base: 10
+  hop_length: 256
+  win_length: 1024
+
+DATASET:
+  name: "vispeech"
+  path: "./"
+  meta_file_train: "metadata.csv"
+
+TRAINING:
+  model: "glow_tts"
   batch_size: 32
   eval_batch_size: 16
+  num_loader_workers: 1
+  num_eval_loader_workers: 1
   run_eval: True
-  epochs: 1000
-  seq_len: 8192
-  data_path: "my_path"
-  output_path: output_path
+  test_delay_epochs: -1
+  epochs: 100
+  text_cleaner: "phoneme_cleaners"
+  use_phonemes: True
+  phoneme_language: "en-us"
+  phoneme_cache_path: os.path.join(output_path, "phoneme_cache")
+  print_step: 25
+  print_eval: False
+  mixed_precision: True
+  output_path: "output"
+  save_step: 1000
+
+
   
