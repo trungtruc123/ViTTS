@@ -264,10 +264,41 @@ class AudioProcessor(object):
             self.sample_rate, self.fft_size, n_mels=self.num_mels, fmin=self.mel_fmin, fmax=self.mel_fmax
         )
 
+    # Mean-STD scaling
+    def load_stats(self, stats_path: str) -> Tuple[np.array, np.array, np.array, np.array, Dict]:
+        """
+        Load mean and variance statistics from 'npy' file
+        :param stats_path :Type(str) Path to the 'npy' file containing
+        :return:
+            Tuple[np.array, np.array, np.array, np.array, Dict]: load statistics and the config used to
+            compute them.
+        """
+        stats = np.load(stats_path, allow_pickle=True).item()
+        mel_mean = stats["mel_mean"]
+        mel_std = stats["mel_std"]
+        linear_mean = stats["linear_mean"]
+        linear_std = stats["linear_std"]
+        stats_config = stats["audio_config"]
+        # check all audio parameters used for computing stats
+        skip_parameters = ["griffin_lim_iters", "stats_path", "do_trim_silence", "ref_level_db", "power"]
+        for key in stats_config.keys():
+            if key in skip_parameters:
+                continue
+            if key not in ["sample_rate", "trim_db"]:
+                assert (
+                        stats_config[key] == self.__dict__[key]
+                ), f"! Audio param {key} does not match the value used for computing mean_var stats."
+        return mel_mean, mel_std, linear_mean, linear_std, stats_config
 
-    def load_stats(self, stats_path):
-        pass
-
-
-    def setup_scaler(self, mel_mean, mel_std, linear_mean, linear_std):
+    def setup_scaler(
+            self, mel_mean: np.ndarray, mel_std: np.ndarray, linear_mean: np.ndarray, linear_std: np.ndarray) -> None:
+        """
+        Initialize scaler objects used in mean-std normalization
+        :param mel_mean: (np.ndarray) Mean for melspectrograms.
+        :param mel_std: (np.ndarray) STD for melspectrograms.
+        :param linear_mean: (np.ndarray) Mean for full scale melspectrograms.
+        :param linear_std: (np.ndarray) STD for full scale melspectrograms.
+        :return:
+        """
+        # self.mel_scaler = StandardScaler()
         pass
