@@ -240,16 +240,34 @@ class AudioProcessor(object):
             return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
         return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
 
+    def _stft_parameters(self) -> Tuple[int, int]:
+        """
+        Compute the real STFT parameters from time values
+        :return:
+            Tuple[int, int]: hop_length and window_length for STFT
+        """
+        factor = self.frame_length_ms / self.frame_shift_ms
+        assert factor.is_integer(), "! frame_shift_ms should divide frame_length_ms"
+        hop_length = int(self.frame_shift_ms / 1000.0 * self.sample_rate)
+        win_length = int(hop_length * factor)
+        return hop_length, win_length
 
+    # setting up the parameters
+    def _build_mel_basis(self) -> np.ndarray:
+        """
+        Build melspectrogram basis
+        :return: np.ndarray: melspectrogram basis
+        """
+        if self.mel_fmax is not None:
+            assert self.mel_fmax <= self.sample_rate // 2
+        return librosa.filters.mel(
+            self.sample_rate, self.fft_size, n_mels=self.num_mels, fmin=self.mel_fmin, fmax=self.mel_fmax
+        )
 
-    def _stft_parameters(self):
-        pass
-
-    def _build_mel_basis(self):
-        pass
 
     def load_stats(self, stats_path):
         pass
+
 
     def setup_scaler(self, mel_mean, mel_std, linear_mean, linear_std):
         pass
