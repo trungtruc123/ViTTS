@@ -7,10 +7,22 @@ _pad = "<PAD>"
 _eos = "<EOS>"
 _bos = "<BOS>"
 _blank = "<BLNK>"  # check if we need this alongside with PAD
-_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzĂÂÊÔƯ"
+_characters_normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+_characters_expand = "ĐĂÂÊÔƠƯđăâêôơư"
 _punctuations = "!'(),-.:;? "
-_phonemes = "ÁẠÃẢÀẮẰẲẴẶẤẦẨẪẬÉÈẺẼẸẾỀỂỄỆÓÒỎÕỌỐỒỔỖỘÚÙỦŨỤỨỪỬỮỰáạãảàắằẳẵặấầẩẫậéèẻẽẹếềểễệóòỏõọốồổỗộúùủũụứừửữự"
+_characters_accents = "ÁẠÃẢÀẮẰẲẴẶẤẦẨẪẬÉÈẺẼẸẾỀỂỄỆÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢÚÙỦŨỤỨỪỬỮỰáạãảàắằẳẵặấầẩẫậéèẻẽẹếềểễệóòỏõọốồổỗộớờởỡợúùủũụứừửữự"
 
+_characters = _characters_normal + _characters_expand + _characters_accents
+
+# DEFAULT SET OF IPA PHONEMES
+# Phonemes definition (All IPA characters)
+_vowels = "iyɨʉɯuɪʏʊeøɘəɵɤoɛœɜɞʌɔæɐaɶɑɒᵻ"
+_non_pulmonic_consonants = "ʘɓǀɗǃʄǂɠǁʛ"
+_pulmonic_consonants = "pbtdʈɖcɟkɡqɢʔɴŋɲɳnɱmʙrʀⱱɾɽɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟ"
+_suprasegmentals = "ˈˌːˑ"
+_other_symbols = "ʍwɥʜʢʡɕʑɺɧʲ"
+_diacrilics = "ɚ˞ɫ"
+_phonemes = _vowels + _non_pulmonic_consonants + _pulmonic_consonants + _suprasegmentals + _other_symbols + _diacrilics
 
 def parse_symbol():
     return {
