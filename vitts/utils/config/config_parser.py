@@ -3,6 +3,7 @@ import re
 import sys
 from typing import *
 from vitts.utils.file_util import load_yaml
+from vitts.utils.file_util import write_json_beautifier
 
 MAPPING_PACKAGE = {
     "AUDIO": {
@@ -43,3 +44,8 @@ class ConfigParser:
     def get_training_arguments(self) -> Dict:
         assert "TRAINING" in self.configure, f"TRAINING not in config, please check again"
         return self.configure.get("TRAINING", {})
+
+if __name__ =="__main__":
+    cofigure = ConfigParser("/home/truc/Documents/ViTTS/config/config.yaml")
+    out = cofigure.get_audio_arguments()
+    print(out)
