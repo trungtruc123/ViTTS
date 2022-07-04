@@ -242,6 +242,27 @@ class BaseDatasetConfig(ConfigParser):
         check_argument("meta_file_attn_mask", c, restricted=True)
 
 
+@dataclass
+class BaseTrainingConfig(TrainerConfig):
+    """Base config to define the basic ViTTS training parameters that are shared
+    among all the models. It is based on ```Trainer.TrainingConfig```.
+
+    Args:
+        model (str):
+            Name of the model that is used in the training.
+
+        num_loader_workers (int):
+            Number of workers for training time dataloader.
+
+        num_eval_loader_workers (int):
+            Number of workers for evaluation time dataloader.
+    """
+    model: str = None
+    num_loader_workers: int = 0
+    num_eval_loader_workers: int = 0
+    use_noise_augment: bool = False
+
+
 if __name__ == "__main__":
     config = BaseAudioConfig()
     # config.num_mels = 5
