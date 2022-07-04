@@ -196,6 +196,52 @@ class BaseAudioConfig(ConfigParser):
         check_argument("trim_db", c, restricted=True)
 
 
+@dataclass
+class BaseDatasetConfig(ConfigParser):
+    """Base config for ViTTS datasets.
+
+    Args:
+        name (str):
+            Dataset name that defines the preprocessor in use. Defaults to None.
+
+        path (str):
+            Root path to the dataset files. Defaults to None.
+
+        meta_file_train (str):
+            Name of the dataset meta file. Or a list of speakers to be ignored at training for multi-speaker datasets.
+            Defaults to None.
+
+        ignored_speakers (List):
+            List of speakers IDs that are not used at the training. Default None.
+
+        language (str):
+            Language code of the dataset. If defined, it overrides `phoneme_language`. Defaults to None.
+
+        meta_file_val (str):
+            Name of the dataset meta file that defines the instances used at validation.
+
+        meta_file_attn_mask (str):
+            Path to the file that lists the attention mask files used with models that require attention masks to
+            train the duration predictor.
+    """
+    name: str = ""
+    path: str = ""
+    meta_file_train: str = ""
+    ignored_speakers: List[str] = None
+    language: str = ""
+    meta_file_val: str = ""
+    meta_file_attn_mask: str = ""
+
+    def check_values(self):
+        """Check config field"""
+        c = asdict(self)
+        check_argument("name", c, restricted=True)
+        check_argument("path", c, restricted=True)
+        check_argument("meta_file_train", c, restricted=True)
+        check_argument("meta_file_val", c, restricted=True)
+        check_argument("meta_file_attn_mask", c, restricted=True)
+
+
 if __name__ == "__main__":
     config = BaseAudioConfig()
     # config.num_mels = 5
