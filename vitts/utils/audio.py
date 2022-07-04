@@ -7,6 +7,7 @@ import soundfile as sd
 import torch
 from torch import nn
 from vitts.utils.config.config_parser import ConfigParser
+from vitts.utils.helpers import StandardScaler
 
 
 class AudioProcessor(object):
@@ -300,5 +301,45 @@ class AudioProcessor(object):
         :param linear_std: (np.ndarray) STD for full scale melspectrograms.
         :return:
         """
-        # self.mel_scaler = StandardScaler()
-        pass
+        self.mel_scaler = StandardScaler()
+        self.mel_scaler.set_stats(mel_mean, mel_std)
+        self.linear_scaler = StandardScaler()
+        self.linear_scaler.set_stats(linear_mean, linear_std)
+
+    """
+    DB(decibels) and AMP ( amplitude) conversion
+    """
+
+    def _amp_to_db(self, amp: np.ndarray) -> np.ndarray:
+        """Convert amplitude values to decibels.
+
+        Args:
+            amp (np.ndarray): Amplitude spectrogram.
+
+        Returns:
+            np.ndarray: Decibels spectrogram.
+        """
+        return self.spec_gain * _log(np.maximum(1e-5, amp), self.base)
+
+    def _db_to_amp(self, db: np.ndarray) -> np.ndarray:
+        """Convert decibels spectrogram to amplitude spectrogram.
+
+        Args:
+            db (np.ndarray): Decibels spectrogram.
+
+        Returns:
+            np.ndarray: Amplitude spectrogram.
+        """
+        return _exp(db / self.spec_gain, self.base)
+
+
+def _log(param, base):
+    if base == 10:
+        return np.log10(param)
+    return np.log(param)
+
+
+def _exp(param, base):
+    if base == 10:
+        return np.power(10, param)
+    return np.exp(param)
