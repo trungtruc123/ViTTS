@@ -8,11 +8,10 @@ _eos = "<EOS>"
 _bos = "<BOS>"
 _blank = "<BLNK>"  # check if we need this alongside with PAD
 _characters_normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-_characters_expand = "ĐĂÂÊÔƠƯđăâêôơư"
 _punctuations = "!'(),-.:;? "
-_characters_accents = "ÁẠÃẢÀẮẰẲẴẶẤẦẨẪẬÉÈẺẼẸẾỀỂỄỆÓÒỎÕỌỐỒỔỖỘỚỜỞỠỢÚÙỦŨỤỨỪỬỮỰáạãảàắằẳẵặấầẩẫậéèẻẽẹếềểễệóòỏõọốồổỗộớờởỡợúùủũụứừửữự"
+_characters_accents = "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÍÌỈĨỊÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịúùủũụưứừửữựýỳỷỹỵđ"
 
-_characters = _characters_normal + _characters_expand + _characters_accents
+_characters = _characters_normal + _characters_accents
 
 # DEFAULT SET OF IPA PHONEMES
 # Phonemes definition (All IPA characters)
@@ -24,6 +23,7 @@ _other_symbols = "ʍwɥʜʢʡɕʑɺɧʲ"
 _diacrilics = "ɚ˞ɫ"
 _phonemes = _vowels + _non_pulmonic_consonants + _pulmonic_consonants + _suprasegmentals + _other_symbols + _diacrilics
 
+
 def parse_symbol():
     return {
         "pad": _pad,
@@ -33,6 +33,7 @@ def parse_symbol():
         "punctuations": _punctuations,
         "phonemes": _phonemes,
     }
+
 
 class BaseVocabulary:
     """Base Vocabulary class.
@@ -108,6 +109,7 @@ class BaseVocabulary:
         """Map an token ID to a character."""
         return self._id_to_char[idx]
 
+
 class BaseCharacters:
     """🐸BaseCharacters class
 
@@ -144,15 +146,15 @@ class BaseCharacters:
     """
 
     def __init__(
-        self,
-        characters: str = None,
-        punctuations: str = None,
-        pad: str = None,
-        eos: str = None,
-        bos: str = None,
-        blank: str = None,
-        is_unique: bool = False,
-        is_sorted: bool = True,
+            self,
+            characters: str = None,
+            punctuations: str = None,
+            pad: str = None,
+            eos: str = None,
+            bos: str = None,
+            blank: str = None,
+            is_unique: bool = False,
+            is_sorted: bool = True,
     ) -> None:
         self._characters = characters
         self._punctuations = punctuations
@@ -257,7 +259,7 @@ class BaseCharacters:
         if self.is_unique:
             duplicates = {x for x in self.vocab if self.vocab.count(x) > 1}
             assert (
-                len(self.vocab) == len(self._char_to_id) == len(self._id_to_char)
+                    len(self.vocab) == len(self._char_to_id) == len(self._id_to_char)
             ), f" [!] There are duplicate characters in the character set. {duplicates}"
 
     def char_to_id(self, char: str) -> int:
@@ -309,16 +311,20 @@ class BaseCharacters:
             is_sorted=self.is_sorted,
         )
 
+
 if __name__ == "__main__":
-    @dataclass(frozen=True)
-    class C:
-        x: int
-        y: int
-
-
-    c = C(1, 2)
-    c1 = replace(c, x=3)
-    # c1 = C(3,2)
-    assert c1.x == 3 and c1.y == 2
-    _phome_lowers = _phonemes.lower()
-    print(_phome_lowers)
+    # @dataclass(frozen=True)
+    # class C:
+    #     x: int
+    #     y: int
+    #
+    #
+    # c = C(1, 2)
+    # c1 = replace(c, x=3)
+    # # c1 = C(3,2)
+    # assert c1.x == 3 and c1.y == 2
+    # _phome_lowers = _characters_accents.upper()
+    # print(_phome_lowers)
+    obj = BaseVocabulary
+    out = obj.char_to_id(char='á')
+    print(out)
