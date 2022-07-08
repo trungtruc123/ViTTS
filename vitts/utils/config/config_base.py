@@ -4,7 +4,6 @@ from typing import List
 from trainer import TrainerConfig
 from vitts.utils.config.config_parser import ConfigParser, check_argument
 
-
 @dataclass
 class BaseAudioConfig(ConfigParser):
     """
@@ -146,7 +145,7 @@ class BaseAudioConfig(ConfigParser):
     pitch_fmin: float = 0.0
     # normalization params
     signal_norm: bool = True
-    min_level_db: int = 0.0
+    min_level_db: int = -100
     symmetric_norm: bool = True
     max_norm: float = 4.0
     clip_norm: bool = True
