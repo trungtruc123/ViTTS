@@ -164,7 +164,7 @@ class AudioProcessor(object):
             db_level=None,
             stats_path=None,
             verbose=True,
-            **_,
+            **kwargs,
     ):
         # setup class attributed
         self.sample_rate = sample_rate
