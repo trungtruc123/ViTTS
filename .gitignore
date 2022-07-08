@@ -126,6 +126,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/tests/data/
-/tests/input/
 /tests/output/
+/tests/input/
+/tests/data/ljspeech/
+/tests/data/ljspeech/f0_cache/
+/tests/data/ljspeech/phoneme_cache/
+/tests/data/ljspeech/wavs/
