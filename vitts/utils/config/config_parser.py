@@ -3,6 +3,7 @@ import re
 import sys
 from typing import *
 from vitts.utils.file_util import load_yaml
+from coqpit import Coqpit
 from vitts.utils.file_util import write_json_beautifier
 
 MAPPING_PACKAGE = {
@@ -18,7 +19,7 @@ MAPPING_PACKAGE = {
 }
 
 
-class ConfigParser:
+class ConfigParser(Coqpit):
     """
     Parser file config (format: yaml or json)
     """
