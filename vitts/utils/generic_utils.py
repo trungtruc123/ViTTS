@@ -13,6 +13,12 @@ import fsspec
 import torch
 
 
+def get_cuda():
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    return use_cuda, device
+
+
 def find_module(model_path: str, module_name: str) -> object:
     """
     Find object of module_name in model_path
