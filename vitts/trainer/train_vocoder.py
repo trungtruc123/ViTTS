@@ -66,5 +66,22 @@ def main():
     # setup audio processor
     ap = AudioProcessor(**config.audio)
 
-if __name__=="__main__":
+    # init the model from config
+    model = setup_model(config)
+
+    # init trainer
+    trainer = Trainer(
+        args,
+        config,
+        config.output_path,
+        model=model,
+        train_samples=train_sample,
+        eval_samples=eval_sample,
+        training_assets={"audio_processor": ap},
+        parse_command_line_args=False,
+    )
+    trainer.fit()
+
+
+if __name__ == "__main__":
     main()
