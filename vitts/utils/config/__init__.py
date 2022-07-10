@@ -71,7 +71,8 @@ def register_config(model_name: str) -> Coqpit:
     """
     config_class = None
     config_name = model_name + "_config"
-    paths = ["home.truc.Documents.ViTTS.vitts.components.encoder.configs", "home.truc.Documents.ViTTS.vitts.components.vocoder.configs"]
+    # home.truc.Documents.ViTTS.
+    paths = ["vitts.components.encoder.configs", "vitts.components.vocoder.configs"]
     for path in paths:
         try:
             config_class = find_module(path, config_name)
