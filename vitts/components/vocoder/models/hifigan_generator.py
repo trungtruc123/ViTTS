@@ -4,7 +4,7 @@ from torch.nn import Conv1d, ConvTranspose1d
 from torch.nn import functional as F
 from torch.nn.utils import remove_weight_norm, weight_norm
 
-from vitts.bins.io import load_fsspec
+from vitts.utils.io import load_fsspec
 
 LRELU_SLOPE = 0.1
 
