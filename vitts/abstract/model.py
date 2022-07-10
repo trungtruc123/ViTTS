@@ -14,7 +14,7 @@ class BaseTrainerModel(TrainerModel):
 
     @staticmethod
     @abstractmethod
-    def init_for_training(config: ConfigParser) -> None:
+    def init_from_config(config: ConfigParser):
         ...
 
     @abstractmethod

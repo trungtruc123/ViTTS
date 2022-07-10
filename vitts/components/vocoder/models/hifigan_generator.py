@@ -178,7 +178,7 @@ class ResBlock2(torch.nn.Module):
             remove_weight_norm(l)
 
 
-class HifiGanGenerator(torch.nn.Module):
+class HifiganGenerator(torch.nn.Module):
     def __init__(
             self,
             in_channels,
