@@ -132,3 +132,4 @@ dmypy.json
 /tests/data/ljspeech/f0_cache/
 /tests/data/ljspeech/phoneme_cache/
 /tests/data/ljspeech/wavs/
+.idea

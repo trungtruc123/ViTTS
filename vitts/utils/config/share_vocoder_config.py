@@ -178,5 +178,5 @@ class BaseGanVocoderConfig(BaseVocoderConfig):
     scheduler_after_epoch: bool = True
 
     use_pqmf: bool = False  # enable/disable using pqmf for multi-band training. (Multi-band MelGAN)
-    step_to_start_discriminator = 0  # start training the discriminator after this number of steps.
+    steps_to_start_discriminator = 0  # start training the discriminator after this number of steps.
     diff_samples_for_G_and_D: bool = False  # use different samples for G and D training steps
