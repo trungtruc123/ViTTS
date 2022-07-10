@@ -9,6 +9,8 @@ from vitts.utils.config.config_parser import ConfigParser
 from vitts.utils.helpers import StandardScaler
 from torch import nn
 import torch
+from coqpit import Coqpit
+
 
 class TorchSTFT(nn.Module):  # pylint: disable=abstract-method
     """Some of the audio processing funtions using Torch for faster batch processing.
@@ -71,22 +73,22 @@ class TorchSTFT(nn.Module):  # pylint: disable=abstract-method
     """
 
     def __init__(
-        self,
-        n_fft,
-        hop_length,
-        win_length,
-        pad_wav=False,
-        window="hann_window",
-        sample_rate=None,
-        mel_fmin=0,
-        mel_fmax=None,
-        n_mels=80,
-        use_mel=False,
-        do_amp_to_db=False,
-        spec_gain=1.0,
-        power=None,
-        use_htk=False,
-        mel_norm="slaney",
+            self,
+            n_fft,
+            hop_length,
+            win_length,
+            pad_wav=False,
+            window="hann_window",
+            sample_rate=None,
+            mel_fmin=0,
+            mel_fmax=None,
+            n_mels=80,
+            use_mel=False,
+            do_amp_to_db=False,
+            spec_gain=1.0,
+            power=None,
+            use_htk=False,
+            mel_norm="slaney",
     ):
         super().__init__()
         self.n_fft = n_fft
@@ -140,10 +142,10 @@ class TorchSTFT(nn.Module):  # pylint: disable=abstract-method
         )
         M = o[:, :, :, 0]
         P = o[:, :, :, 1]
-        S = torch.sqrt(torch.clamp(M**2 + P**2, min=1e-8))
+        S = torch.sqrt(torch.clamp(M ** 2 + P ** 2, min=1e-8))
 
         if self.power is not None:
-            S = S**self.power
+            S = S ** self.power
 
         if self.use_mel:
             S = torch.matmul(self.mel_basis.to(x), S)
@@ -170,6 +172,7 @@ class TorchSTFT(nn.Module):  # pylint: disable=abstract-method
     @staticmethod
     def _db_to_amp(x, spec_gain=1.0):
         return torch.exp(x) / spec_gain
+
 
 class AudioProcessor(object):
     """
@@ -397,10 +400,13 @@ class AudioProcessor(object):
             self.symmetric_norm = None
 
     @staticmethod
-    def init_from_config(config: ConfigParser, verbose: True):
-        if "AUDIO" in config:
-            return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
-        return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
+    def init_from_config(config: "Coqpit", verbose: True):
+        if "audio" in config:
+            return AudioProcessor(verbose=verbose, **config.audio)
+        return AudioProcessor(verbose=verbose, **config)
+        # if "AUDIO" in config:
+        #     return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
+        # return AudioProcessor(verbose=verbose, **config.get_audio_arguments())
 
     def _stft_parameters(self) -> Tuple[int, int]:
         """

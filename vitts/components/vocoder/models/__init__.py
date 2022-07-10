@@ -14,7 +14,7 @@ def setup_model(config: Coqpit):
     Load model directly from configuration
     """
     if "discriminator_model" in config and "generator_model" in config:
-        my_model = importlib.import_module("vitts.components.vocoder.models.gan")
+        my_model = importlib.import_module("vitts.components.vocoder.models.hifigan")
         my_model = getattr(my_model, "GAN")
     else:
         my_model = importlib.import_module("vitts.components.vocoder.models." + config.model.lower())
@@ -30,8 +30,8 @@ def setup_model(config: Coqpit):
             except ModuleNotFoundError as e:
                 raise ValueError(f" ! Model {config.model} not exist") from e
 
-        print(" >>> Vocoder model: {}".format(config.model))
-        return my_model.init_from_config(config)
+    print(" >>> Vocoder model: {}".format(config.model))
+    return my_model.init_from_config(config)
 
 
 def setup_generator(c):
