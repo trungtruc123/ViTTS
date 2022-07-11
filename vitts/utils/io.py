@@ -29,4 +29,13 @@ def load_fsspec(
     with fsspec.open(path, "rb") as f:
         return torch.load(f, map_location=map_location, **kwargs)
 
+def save_fsspec(state: Any, path: str, **kwargs):
+    """Like torch.save but can save to other locations (e.g. s3:// , gs://).
 
+    Args:
+        state: State object to save
+        path: Any path or url supported by fsspec.
+        **kwargs: Keyword arguments forwarded to torch.save.
+    """
+    with fsspec.open(path, "wb") as f:
+        torch.save(state, f, **kwargs)
