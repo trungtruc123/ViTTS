@@ -1,7 +1,66 @@
 from dataclasses import asdict, dataclass, field
 from typing import Dict, List
-from vitts.utils.config.config_base import BaseTrainingConfig
+from coqpit import Coqpit
+from vitts.utils.config.config_base import BaseAudioConfig, BaseDatasetConfig, BaseTrainingConfig
 
+@dataclass
+class CharactersConfig(Coqpit):
+    """Defines arguments for the `BaseCharacters` or `BaseVocabulary` and their subclasses.
+
+    Args:
+        characters_class (str):
+            Defines the class of the characters used. If None, we pick ```Phonemes``` or ```Graphemes``` based on
+            the configuration. Defaults to None.
+
+        vocab_dict (dict):
+            Defines the vocabulary dictionary used to encode the characters. Defaults to None.
+
+        pad (str):
+            characters in place of empty padding. Defaults to None.
+
+        eos (str):
+            characters showing the end of a sentence. Defaults to None.
+
+        bos (str):
+            characters showing the beginning of a sentence. Defaults to None.
+
+        blank (str):
+            Optional character used between characters by some models for better prosody. Defaults to `_blank`.
+
+        characters (str):
+            character set used by the model. Characters not in this list are ignored when converting input text to
+            a list of sequence IDs. Defaults to None.
+
+        punctuations (str):
+            characters considered as punctuation as parsing the input sentence. Defaults to None.
+
+        phonemes (str):
+            characters considered as parsing phonemes. This is only for backwards compat. Use `characters` for new
+            models. Defaults to None.
+
+        is_unique (bool):
+            remove any duplicate characters in the character lists. It is a bandaid for compatibility with the old
+            models trained with character lists with duplicates. Defaults to True.
+
+        is_sorted (bool):
+            Sort the characters in alphabetical order. Defaults to True.
+    """
+
+    characters_class: str = None
+
+    # using BaseVocabulary
+    vocab_dict: Dict = None
+
+    # using on BaseCharacters
+    pad: str = None
+    eos: str = None
+    bos: str = None
+    blank: str = None
+    characters: str = None
+    punctuations: str = None
+    phonemes: str = None
+    is_unique: bool = True  # for backwards compatibility of models trained with char sets with duplicates
+    is_sorted: bool = True
 
 @dataclass
 class BaseTTSConfig(BaseTrainingConfig):
@@ -137,3 +196,50 @@ class BaseTTSConfig(BaseTrainingConfig):
         length_weighted_sampler_alpha (float):
             Number that control the influence of the length sampler weights. Defaults to ```1.0```.
     """
+    audio: BaseAudioConfig = field(default_factory=BaseAudioConfig)
+    # phoneme settings
+    use_phonemes: bool = False
+    phonemizer: str = None
+    phoneme_language: str = None
+    compute_input_seq_cache: bool = False
+    text_cleaner: str = None
+    enable_eos_bos_chars: bool = False
+    test_sentences_file: str = ""
+    phoneme_cache_path: str = None
+    # vocabulary parameters
+    characters: CharactersConfig = None
+    add_blank: bool = False
+    # training params
+    batch_group_size: int = 0
+    loss_masking: bool = None
+    # dataloading
+    sort_by_audio_len: bool = False
+    min_audio_len: int = 1
+    max_audio_len: int = float("inf")
+    min_text_len: int = 1
+    max_text_len: int = float("inf")
+    compute_f0: bool = False
+    compute_linear_spec: bool = False
+    precompute_num_workers: int = 0
+    use_noise_augment: bool = False
+    start_by_longest: bool = False
+    # dataset
+    datasets: List[BaseDatasetConfig] = field(default_factory=lambda: [BaseDatasetConfig()])
+    # optimizer
+    optimizer: str = "radam"
+    optimizer_params: dict = None
+    # scheduler
+    lr_scheduler: str = ""
+    lr_scheduler_params: dict = field(default_factory=lambda: {})
+    # testing
+    test_sentences: List[str] = field(default_factory=lambda: [])
+    # evaluation
+    eval_split_max_size: int = None
+    eval_split_size: float = 0.01
+    # weighted samplers
+    use_speaker_weighted_sampler: bool = False
+    speaker_weighted_sampler_alpha: float = 1.0
+    use_language_weighted_sampler: bool = False
+    language_weighted_sampler_alpha: float = 1.0
+    use_length_weighted_sampler: bool = False
+    length_weighted_sampler_alpha: float = 1.0
