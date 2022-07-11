@@ -2,6 +2,12 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
+try:
+    import maximum_path_c
+    CYTHON = True
+except ModuleNotFoundError:
+    CYTHON = False
+
 
 class StandardScaler:
     """StandardScaler for mean-scale normalization with the given mean and scale values."""
@@ -162,6 +168,32 @@ def generate_path(duration, mask):
     path = path - F.pad(path, convert_pad_shape([[0, 0], [1, 0], [0, 0]]))[:, :-1]
     path = path * mask
     return path
+
+
+def maximum_path(value, mask):
+    if CYTHON:
+        return maximum_path_cython(value, mask)
+    return maximum_path_numpy(value, mask)
+
+
+def maximum_path_cython(value, mask):
+    """Cython optimised version.
+    Shapes:
+        - value: :math:`[B, T_en, T_de]`
+        - mask: :math:`[B, T_en, T_de]`
+    """
+    value = value * mask
+    device = value.device
+    dtype = value.dtype
+    value = value.data.cpu().numpy().astype(np.float32)
+    path = np.zeros_like(value).astype(np.int32)
+    mask = mask.data.cpu().numpy()
+
+    t_x_max = mask.sum(1)[:, 0].astype(np.int32)
+    t_y_max = mask.sum(2)[:, 0].astype(np.int32)
+    maximum_path_c(path, value, t_x_max, t_y_max)
+    return torch.from_numpy(path).to(device=device, dtype=dtype)
+
 
 def maximum_path_numpy(value, mask, max_neg_val=None):
     """

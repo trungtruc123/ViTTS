@@ -117,3 +117,23 @@ class AugmentWAV(object):
             return self.reverberate(audio)
 
         return self.additive_noise(noise_type, audio)
+
+def setup_encoder_model(config: "Coqpit"):
+    if config.model_params["model_name"].lower() == "lstm":
+        model = LSTMSpeakerEncoder(
+            config.model_params["input_dim"],
+            config.model_params["proj_dim"],
+            config.model_params["lstm_dim"],
+            config.model_params["num_lstm_layers"],
+            use_torch_spec=config.model_params.get("use_torch_spec", False),
+            audio_config=config.audio,
+        )
+    elif config.model_params["model_name"].lower() == "resnet":
+        model = ResNetSpeakerEncoder(
+            input_dim=config.model_params["input_dim"],
+            proj_dim=config.model_params["proj_dim"],
+            log_input=config.model_params.get("log_input", False),
+            use_torch_spec=config.model_params.get("use_torch_spec", False),
+            audio_config=config.audio,
+        )
+    return model
