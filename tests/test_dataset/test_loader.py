@@ -17,7 +17,7 @@ os.makedirs(OUTPATH, exist_ok=True)
 
 # create dummy config for testing data loader
 c = BaseTTSConfig(
-    text_cleaner="vispeech",
+    text_cleaner="vi_cleaners",
     num_loader_workers=0,
     batch_size=2,
     use_noise_augment=False,
@@ -56,7 +56,7 @@ class TestTTSDataset(unittest.TestCase):
             eval_split_size=0.2,
         )
         items = meta_data_train + meta_data_eval
-        tokenizer = TTSTokenizer.init_from_config(c)
+        tokenizer, _ = TTSTokenizer.init_from_config(c)
 
         dataset = TTSDataset(
             outputs_per_step=r,
@@ -70,7 +70,7 @@ class TestTTSDataset(unittest.TestCase):
             max_text_len=c.max_text_len,
             min_audio_len=c.min_audio_len,
             max_audio_len=c.max_audio_len,
-            start_by_longest=start_by_longest
+            start_by_longest=start_by_longest,
         )
         dataloader = DataLoader(
             dataset,
@@ -78,7 +78,7 @@ class TestTTSDataset(unittest.TestCase):
             shuffle=False,
             collate_fn=dataset.collate_fn,
             drop_last= True,
-            num_workers= c.num_loader_workers
+            num_workers= c.num_loader_workers,
         )
         return  dataloader, dataset
 

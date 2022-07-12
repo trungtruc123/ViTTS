@@ -10,6 +10,7 @@ from torch.utils.data import Dataset
 
 from vitts.components.vitts.utils.data import prepare_data, prepare_stop_target, prepare_tensor
 from vitts.utils.audio import AudioProcessor
+from vitts.components.vitts.utils.text.tokenizer import TTSTokenizer
 
 # to prevent too many open files error as suggested here
 # https://github.com/pytorch/pytorch/issues/11201#issuecomment-421146936

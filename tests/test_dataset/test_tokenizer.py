@@ -10,7 +10,7 @@ class TestTokenizer(unittest.TestCase):
             use_phonemes=False,
             characters=Graphemes()
         )
-        text = "ưTôi tên là trự"
+        text = "ưtôi tên là trự"
         ids = tokenizer.text_to_ids(text)
         text_hat = tokenizer.ids_to_text(ids)
         assert text_hat == text

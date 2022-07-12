@@ -56,3 +56,30 @@ def set_init_dict(model_dict, checkpoint_state, c):
     model_dict.update(pretrained_dict)
     print(" | > {} / {} layers are restored.".format(len(pretrained_dict), len(model_dict)))
     return model_dict
+
+
+def get_import_path(obj: object) -> str:
+    """Get the import path of a class.
+
+    Args:
+        obj (object): The class object.
+
+    Returns:
+        str: The import path of the class.
+    """
+    return ".".join([type(obj).__module__, type(obj).__name__])
+
+
+def import_class(module_path: str) -> object:
+    """Import a class from a module path.
+
+    Args:
+        module_path (str): The module path of the class.
+
+    Returns:
+        object: The imported class.
+    """
+    class_name = module_path.split(".")[-1]
+    module_path = ".".join(module_path.split(".")[:-1])
+    module = importlib.import_module(module_path)
+    return getattr(module, class_name)
