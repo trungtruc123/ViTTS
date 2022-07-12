@@ -236,15 +236,15 @@ if __name__=="__main__":
     config = GlowTTSConfig(
         batch_size=32,
         eval_batch_size=16,
-        num_loader_workers=1,
-        num_eval_loader_workers=1,
+        num_loader_workers=0,
+        num_eval_loader_workers=0,
         run_eval=True,
         test_delay_epochs=-1,
         epochs=100,
-        text_cleaner="phoneme_cleaners",
-        use_phonemes=True,
-        phoneme_language="vi",
-        phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
+        text_cleaner="vi_cleaners",
+        use_phonemes=False,
+        # phoneme_language="vi",
+        # phoneme_cache_path=os.path.join(output_path, "phoneme_cache"),
         print_step=25,
         print_eval=False,
         mixed_precision=True,
@@ -252,3 +252,4 @@ if __name__=="__main__":
         save_step=1000
     )
     tokenizer, config = TTSTokenizer.init_from_config(config)
+    print(tokenizer.use_phonemes)
