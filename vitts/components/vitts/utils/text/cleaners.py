@@ -5,20 +5,28 @@ import re
 
 from anyascii import anyascii
 
-from TTS.tts.utils.text.chinese_mandarin.numbers import replace_numbers_to_characters_in_text
+from vitts.components.vitts.utils.text.chinese_mandarin.numbers import replace_numbers_to_characters_in_text
 
+# english
 from .english.abbreviations import abbreviations_en
 from .english.number_norm import normalize_numbers as en_normalize_numbers
 from .english.time_norm import expand_time_english
 from .french.abbreviations import abbreviations_fr
+
+# vietnamese
+from .vietnamese.abbreviations import abbreviations_vi
+from .vietnamese.number_norm import normalize_numbers as vi_normalize_numbers
+from .vietnamese.time_norm import expand_time_vi
 
 # Regular expression matching whitespace:
 _whitespace_re = re.compile(r"\s+")
 
 
 def expand_abbreviations(text, lang="en"):
-    if lang == "en":
-        _abbreviations = abbreviations_en
+    _abbreviations = abbreviations_en
+
+    if lang == "vi":
+        _abbreviations = abbreviations_vi
     elif lang == "fr":
         _abbreviations = abbreviations_fr
     for regex, replacement in _abbreviations:
@@ -49,6 +57,8 @@ def replace_symbols(text, lang="en"):
     text = text.replace(":", ",")
     if lang == "en":
         text = text.replace("&", " and ")
+    elif lang == "vi":
+        text = text.replace("&", "và")
     elif lang == "fr":
         text = text.replace("&", " et ")
     elif lang == "pt":
@@ -140,6 +150,18 @@ def multilingual_cleaners(text):
     """Pipeline for multilingual text"""
     text = lowercase(text)
     text = replace_symbols(text, lang=None)
+    text = remove_aux_symbols(text)
+    text = collapse_whitespace(text)
+    return text
+
+def vi_cleaners(text):
+    """Pipeline for vietnamese text, including number and abbreviation expansion."""
+    # text = convert_to_ascii(text)
+    text = lowercase(text)
+    text = expand_time_vi(text)
+    text = vi_normalize_numbers(text)
+    text = expand_abbreviations(text)
+    text = replace_symbols(text)
     text = remove_aux_symbols(text)
     text = collapse_whitespace(text)
     return text

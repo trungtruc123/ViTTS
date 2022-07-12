@@ -1,1 +1,1 @@
-from TTS.tts.utils.text.tokenizer import TTSTokenizer
+from vitts.components.vitts.utils.text.tokenizer import TTSTokenizer
