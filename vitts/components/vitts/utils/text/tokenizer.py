@@ -1,9 +1,9 @@
 from typing import Callable, Dict, List, Union
 
-from TTS.tts.utils.text import cleaners
-from TTS.tts.utils.text.characters import Graphemes, IPAPhonemes
-from TTS.tts.utils.text.phonemizers import DEF_LANG_TO_PHONEMIZER, get_phonemizer_by_name
-from TTS.utils.generic_utils import get_import_path, import_class
+from vitts.components.vitts.utils.text import cleaners
+from vitts.components.vitts.utils.text.characters import Graphemes, IPAPhonemes
+from vitts.components.vitts.utils.text.phonemizers import DEF_LANG_TO_PHONEMIZER, get_phonemizer_by_name
+from vitts.utils.generic_utils import get_import_path, import_class
 
 
 class TTSTokenizer:
@@ -25,7 +25,7 @@ class TTSTokenizer:
             A phonemizer object or a dict that maps language codes to phonemizer objects. Defaults to None.
 
     Example:
-        >>> from TTS.tts.utils.text.tokenizer import TTSTokenizer
+        >>> from vitts.components.vitts.utils.text.tokenizer import TTSTokenizer
         >>> tokenizer = TTSTokenizer(use_phonemes=False, characters=Graphemes())
         >>> text = "Hello world!"
         >>> ids = tokenizer.text_to_ids(text)
@@ -156,7 +156,6 @@ class TTSTokenizer:
         text_cleaner = None
         if isinstance(config.text_cleaner, (str, list)):
             text_cleaner = getattr(cleaners, config.text_cleaner)
-
         # init characters
         if characters is None:
             # set characters based on defined characters class

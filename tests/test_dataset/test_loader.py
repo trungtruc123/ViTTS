@@ -17,7 +17,7 @@ os.makedirs(OUTPATH, exist_ok=True)
 
 # create dummy config for testing data loader
 c = BaseTTSConfig(
-    text_cleaner="vispeech",
+    text_cleaner="vi_cleaners",
     num_loader_workers=0,
     batch_size=2,
     use_noise_augment=False,
