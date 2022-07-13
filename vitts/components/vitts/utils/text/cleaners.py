@@ -158,7 +158,7 @@ def vi_cleaners(text):
     """Pipeline for vietnamese text, including number and abbreviation expansion."""
     # text = convert_to_ascii(text)
     text = lowercase(text)
-    text = expand_time_vi(text)
+    # text = expand_time_vi(text)
     text = vi_normalize_numbers(text)
     text = expand_abbreviations(text)
     text = replace_symbols(text)
