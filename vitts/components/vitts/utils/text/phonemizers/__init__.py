@@ -1,23 +1,24 @@
-from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
-from TTS.tts.utils.text.phonemizers.espeak_wrapper import ESpeak
-from TTS.tts.utils.text.phonemizers.gruut_wrapper import Gruut
-from TTS.tts.utils.text.phonemizers.ja_jp_phonemizer import JA_JP_Phonemizer
-from TTS.tts.utils.text.phonemizers.zh_cn_phonemizer import ZH_CN_Phonemizer
+# from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
+# from TTS.tts.utils.text.phonemizers.espeak_wrapper import ESpeak
+# from TTS.tts.utils.text.phonemizers.gruut_wrapper import Gruut
+# from TTS.tts.utils.text.phonemizers.ja_jp_phonemizer import JA_JP_Phonemizer
+# from TTS.tts.utils.text.phonemizers.zh_cn_phonemizer import ZH_CN_Phonemizer
 # from TTS.tts.utils.text.phonemizers.vi_phonemizer import VI_Phonemizer
-
+from vitts.components.vitts.utils.text.phonemizers.base import BasePhonemizer
+from vitts.components.vitts.utils.text.phonemizers.espeak_wrapper import ESpeak
+from vitts.components.vitts.utils.text.phonemizers.ja_jp_phonemizer import JA_JP_Phonemizer
+from vitts.components.vitts.utils.text.phonemizers.zh_cn_phonemizer import ZH_CN_Phonemizer
+from vitts.components.vitts.utils.text.phonemizers.gruut_wrapper import Gruut
 
 PHONEMIZERS = {b.name(): b for b in (ESpeak, Gruut, JA_JP_Phonemizer)}
 
-
 ESPEAK_LANGS = list(ESpeak.supported_languages().keys())
 GRUUT_LANGS = list(Gruut.supported_languages())
-
 
 # Dict setting default phonemizers for each language
 # Add Gruut languages
 _ = [Gruut.name()] * len(GRUUT_LANGS)
 DEF_LANG_TO_PHONEMIZER = dict(list(zip(GRUUT_LANGS, _)))
-
 
 # Add ESpeak languages and override any existing ones
 _ = [ESpeak.name()] * len(ESPEAK_LANGS)
@@ -28,6 +29,8 @@ DEF_LANG_TO_PHONEMIZER.update(_new_dict)
 DEF_LANG_TO_PHONEMIZER["en"] = DEF_LANG_TO_PHONEMIZER["en-us"]
 DEF_LANG_TO_PHONEMIZER["ja-jp"] = JA_JP_Phonemizer.name()
 DEF_LANG_TO_PHONEMIZER["zh-cn"] = ZH_CN_Phonemizer.name()
+
+
 # DEF_LANG_TO_PHONEMIZER["vi"] = VI_Phonemizer.name()
 
 
