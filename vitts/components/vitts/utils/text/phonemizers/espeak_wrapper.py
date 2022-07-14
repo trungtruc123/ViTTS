@@ -2,9 +2,8 @@ import logging
 import subprocess
 from typing import Dict, List
 
-from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
-from TTS.tts.utils.text.punctuation import Punctuation
-
+from vitts.components.vitts.utils.text.phonemizers.base import BasePhonemizer
+from vitts.components.vitts.utils.text.punctuation import Punctuation
 
 def is_tool(name):
     from shutil import which
