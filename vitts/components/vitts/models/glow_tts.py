@@ -25,6 +25,7 @@ from vitts.components.vitts.utils.visual import (
 )
 from vitts.utils.io import load_fsspec
 
+
 class GlowTTS(BaseTTS):
     """GlowTTS model.
 
@@ -63,11 +64,11 @@ class GlowTTS(BaseTTS):
     """
 
     def __init__(
-        self,
-        config: GlowTTSConfig,
-        ap: "AudioProcessor" = None,
-        tokenizer: "TTSTokenizer" = None,
-        speaker_manager: SpeakerManager = None,
+            self,
+            config: GlowTTSConfig,
+            ap: "AudioProcessor" = None,
+            tokenizer: "TTSTokenizer" = None,
+            speaker_manager: SpeakerManager = None,
     ):
 
         super().__init__(config, ap, tokenizer, speaker_manager)
@@ -130,7 +131,7 @@ class GlowTTS(BaseTTS):
             )
             if self.speaker_manager is not None:
                 assert (
-                    config.d_vector_dim == self.speaker_manager.embedding_dim
+                        config.d_vector_dim == self.speaker_manager.embedding_dim
                 ), " [!] d-vector dimension mismatch b/w config and speaker manager."
         # init speaker embedding layer
         if config.use_speaker_embedding and not config.use_d_vector_file:
@@ -198,7 +199,7 @@ class GlowTTS(BaseTTS):
         return g
 
     def forward(
-        self, x, x_lengths, y, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
+            self, x, x_lengths, y, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
     ):  # pylint: disable=dangerous-default-value
         """
         Args:
@@ -248,9 +249,9 @@ class GlowTTS(BaseTTS):
         with torch.no_grad():
             o_scale = torch.exp(-2 * o_log_scale)
             logp1 = torch.sum(-0.5 * math.log(2 * math.pi) - o_log_scale, [1]).unsqueeze(-1)  # [b, t, 1]
-            logp2 = torch.matmul(o_scale.transpose(1, 2), -0.5 * (z**2))  # [b, t, d] x [b, d, t'] = [b, t, t']
+            logp2 = torch.matmul(o_scale.transpose(1, 2), -0.5 * (z ** 2))  # [b, t, d] x [b, d, t'] = [b, t, t']
             logp3 = torch.matmul((o_mean * o_scale).transpose(1, 2), z)  # [b, t, d] x [b, d, t'] = [b, t, t']
-            logp4 = torch.sum(-0.5 * (o_mean**2) * o_scale, [1]).unsqueeze(-1)  # [b, t, 1]
+            logp4 = torch.sum(-0.5 * (o_mean ** 2) * o_scale, [1]).unsqueeze(-1)  # [b, t, 1]
             logp = logp1 + logp2 + logp3 + logp4  # [b, t, t']
             attn = maximum_path(logp, attn_mask.squeeze(1)).unsqueeze(1).detach()
         y_mean, y_log_scale, o_attn_dur = self.compute_outputs(attn, o_mean, o_log_scale, x_mask)
@@ -268,7 +269,7 @@ class GlowTTS(BaseTTS):
 
     @torch.no_grad()
     def inference_with_MAS(
-        self, x, x_lengths, y=None, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
+            self, x, x_lengths, y=None, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
     ):  # pylint: disable=dangerous-default-value
         """
         It's similar to the teacher forcing in Tacotron.
@@ -297,9 +298,9 @@ class GlowTTS(BaseTTS):
         # find the alignment path between z and encoder output
         o_scale = torch.exp(-2 * o_log_scale)
         logp1 = torch.sum(-0.5 * math.log(2 * math.pi) - o_log_scale, [1]).unsqueeze(-1)  # [b, t, 1]
-        logp2 = torch.matmul(o_scale.transpose(1, 2), -0.5 * (z**2))  # [b, t, d] x [b, d, t'] = [b, t, t']
+        logp2 = torch.matmul(o_scale.transpose(1, 2), -0.5 * (z ** 2))  # [b, t, d] x [b, d, t'] = [b, t, t']
         logp3 = torch.matmul((o_mean * o_scale).transpose(1, 2), z)  # [b, t, d] x [b, d, t'] = [b, t, t']
-        logp4 = torch.sum(-0.5 * (o_mean**2) * o_scale, [1]).unsqueeze(-1)  # [b, t, 1]
+        logp4 = torch.sum(-0.5 * (o_mean ** 2) * o_scale, [1]).unsqueeze(-1)  # [b, t, 1]
         logp = logp1 + logp2 + logp3 + logp4  # [b, t, t']
         attn = maximum_path(logp, attn_mask.squeeze(1)).unsqueeze(1).detach()
 
@@ -324,7 +325,7 @@ class GlowTTS(BaseTTS):
 
     @torch.no_grad()
     def decoder_inference(
-        self, y, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
+            self, y, y_lengths=None, aux_input={"d_vectors": None, "speaker_ids": None}
     ):  # pylint: disable=dangerous-default-value
         """
         Shapes:
@@ -347,7 +348,7 @@ class GlowTTS(BaseTTS):
 
     @torch.no_grad()
     def inference(
-        self, x, aux_input={"x_lengths": None, "d_vectors": None, "speaker_ids": None}
+            self, x, aux_input={"x_lengths": None, "d_vectors": None, "speaker_ids": None}
     ):  # pylint: disable=dangerous-default-value
         x_lengths = aux_input["x_lengths"]
         g = self._speaker_embedding(aux_input)
@@ -462,7 +463,7 @@ class GlowTTS(BaseTTS):
         return figures, {"audio": train_audio}
 
     def train_log(
-        self, batch: dict, outputs: dict, logger: "Logger", assets: dict, steps: int
+            self, batch: dict, outputs: dict, logger: "Logger", assets: dict, steps: int
     ) -> None:  # pylint: disable=no-self-use
         figures, audios = self._create_logs(batch, outputs, self.ap)
         logger.train_figures(steps, figures)
@@ -527,7 +528,7 @@ class GlowTTS(BaseTTS):
         self.decoder.store_inverse()
 
     def load_checkpoint(
-        self, config, checkpoint_path, eval=False
+            self, config, checkpoint_path, eval=False
     ):  # pylint: disable=unused-argument, redefined-builtin
         state = load_fsspec(checkpoint_path, map_location=torch.device("cpu"))
         self.load_state_dict(state["model"])
@@ -538,8 +539,7 @@ class GlowTTS(BaseTTS):
 
     @staticmethod
     def get_criterion():
-        from TTS.tts.layers.losses import GlowTTSLoss  # pylint: disable=import-outside-toplevel
-
+        from vitts.components.vitts.layers.losses import GlowTTSLoss
         return GlowTTSLoss()
 
     def on_train_step_start(self, trainer):
