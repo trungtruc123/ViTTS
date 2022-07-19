@@ -1,7 +1,7 @@
 from typing import Dict
 
-from TTS.tts.utils.text.japanese.phonemizer import japanese_text_to_phonemes
-from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
+from vitts.components.vitts.utils.text.japanese.phonemizer import japanese_text_to_phonemes
+from vitts.components.vitts.utils.text.phonemizers.base import BasePhonemizer
 
 _DEF_JA_PUNCS = "、.,[]()?!〽~『』「」【】"
 

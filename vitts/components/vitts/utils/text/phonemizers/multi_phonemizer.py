@@ -1,7 +1,6 @@
 from typing import Dict, List
 
-from TTS.tts.utils.text.phonemizers import DEF_LANG_TO_PHONEMIZER, get_phonemizer_by_name
-
+from vitts.components.vitts.utils.text.phonemizers import DEF_LANG_TO_PHONEMIZER, get_phonemizer_by_name
 
 class MultiPhonemizer:
     """🐸TTS multi-phonemizer that operates phonemizers for multiple langugages

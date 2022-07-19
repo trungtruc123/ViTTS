@@ -4,8 +4,8 @@ from typing import List
 import gruut
 from gruut_ipa import IPA
 
-from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
-from TTS.tts.utils.text.punctuation import Punctuation
+from vitts.components.vitts.utils.text.phonemizers.base import BasePhonemizer
+from vitts.components.vitts.utils.text.punctuation import Punctuation
 
 # Table for str.translate to fix gruut/TTS phoneme mismatch
 GRUUT_TRANS_TABLE = str.maketrans("g", "ɡ")
