@@ -6,6 +6,7 @@ import json
 from typing import *
 from coqpit import Coqpit
 from vitts.utils.generic_utils import find_module
+import re
 
 
 def load_config(config_path: str) -> None:
@@ -31,8 +32,8 @@ def load_config(config_path: str) -> None:
         try:
             with fsspec.open(config_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-        except:
-            raise "! Error not read file json"
+        except json.decoder.JSONDecodeError:
+                data = read_json_with_comments(config_path)
     else:
         raise TypeError(f"! Unknown config type. Please use file yaml or json")
     config_dict.update(data)
@@ -72,7 +73,7 @@ def register_config(model_name: str) -> Coqpit:
     config_class = None
     config_name = model_name + "_config"
     # home.truc.Documents.ViTTS.
-    paths = ["vitts.components.encoder.configs", "vitts.components.vocoder.configs"]
+    paths = ["vitts.components.encoder.configs", "vitts.components.vocoder.configs", "vitts.components.vitts.configs"]
     for path in paths:
         try:
             config_class = find_module(path, config_name)
@@ -108,3 +109,14 @@ def get_from_config_or_model_args_with_default(config, arg_name, def_val):
     if hasattr(config, arg_name):
         return config[arg_name]
     return def_val
+
+def read_json_with_comments(json_path):
+    """for backward compat."""
+    # fallback to json
+    with fsspec.open(json_path, "r", encoding="utf-8") as f:
+        input_str = f.read()
+    # handle comments
+    input_str = re.sub(r"\\\n", "", input_str)
+    input_str = re.sub(r"//.*\n", "\n", input_str)
+    data = json.loads(input_str)
+    return data

@@ -35,7 +35,7 @@ def find_module(model_path: str, module_name: str) -> object:
 def to_camel(text):
     text = text.capitalize()
     text = re.sub(r"(?!^)_([a-zA-Z])", lambda m: m.group(1).upper(), text)
-    text = text.replace("Vitts", "vitts")
+    text = text.replace("Tts", "TTS")
     return text
 
 
